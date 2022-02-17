@@ -1,0 +1,39 @@
+version: "3"
+services:
+  url-scraper:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      PORT: 80
+      NODE_ENV: dev # to test production builds disable this.
+      # NODE_ENV: production # to test production builds enable this.
+      SQL_DB_USERNAME: testuser1
+      SQL_DB_PASSWORD: $MYSQLDB_ROOT_PASSWORD
+      SQL_DB_HOST: $MYSQLDB_HOST
+      SQL_DB_PORT: 3307
+      SQL_DB_NAME: $MYSQLDB_DATABASE
+
+    ports:
+      - 8098:80
+    volumes:
+      - url-scraper-node-modules-volume:/app/node_modules
+      - ./src:/app/src
+    deploy:
+      replicas: 1
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$SQL_DB_LOCAL_PORT
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$SQL_DB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  # url-scraper-node-modules-volume:
+  db:
