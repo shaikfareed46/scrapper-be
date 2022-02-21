@@ -1,4 +1,4 @@
-FROM node:10.16.3-alpine
+FROM node:12-alpine
 # RUN npm install node-rdkafka@2.7.1-2
 
 LABEL authors="Shaik Fareed"

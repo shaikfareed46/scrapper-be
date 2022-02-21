@@ -12,14 +12,13 @@ services:
       PORT: 80
       NODE_ENV: dev # to test production builds disable this.
       # NODE_ENV: production # to test production builds enable this.
-      SQL_DB_USERNAME: testuser1
-      SQL_DB_PASSWORD: $MYSQLDB_ROOT_PASSWORD
-      SQL_DB_HOST: $MYSQLDB_HOST
-      SQL_DB_PORT: 3307
-      SQL_DB_NAME: $MYSQLDB_DATABASE
+      SQL_DB_USERNAME: $SQL_DB_USERNAME
+      SQL_DB_PASSWORD: $SQL_DB_PASSWORD
+      SQL_DB_HOST: mysqldb
+      SQL_DB_NAME: $SQL_DB_NAME
 
     ports:
-      - 8098:80
+      - 80:80
     volumes:
       - url-scraper-node-modules-volume:/app/node_modules
       - ./src:/app/src
@@ -30,10 +29,12 @@ services:
     restart: unless-stopped
     env_file: ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=$SQL_DB_LOCAL_PORT
-      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_ROOT_PASSWORD=$SQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$SQL_DB_NAME
+      - MYSQL_USER=$SQL_DB_USERNAME
+      - MYSQL_PASSWORD=$SQL_DB_PASSWORD
     ports:
-      - $MYSQLDB_LOCAL_PORT:$SQL_DB_DOCKER_PORT
+      - $SQL_DB_LOCAL_PORT:$SQL_DB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
 volumes:

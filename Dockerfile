@@ -1,4 +1,4 @@
-FROM node:10.16.3-alpine AS BUILD_IMAGE
+FROM node:12-alpine AS BUILD_IMAGE
 
 LABEL authors="Shaik Fareed"
 
