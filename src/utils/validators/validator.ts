@@ -11,7 +11,7 @@ const urlChecker = v.compile(urlSchema);
 
 
 export const validateUrl = (urls: IURLRequest) => {
-    const isValid = urlChecker(urls);
+    const isValid = <any>urlChecker(urls);
     if(isValid === true){
         return isValid
     }

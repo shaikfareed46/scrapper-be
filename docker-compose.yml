@@ -1,6 +1,8 @@
 version: "3"
 services:
   url-scraper:
+    depends_on:
+      - mysqldb
     build:
       context: .
       dockerfile: dev.Dockerfile
@@ -35,5 +37,5 @@ services:
     volumes:
       - db:/var/lib/mysql
 volumes:
-  # url-scraper-node-modules-volume:
+  url-scraper-node-modules-volume:
   db:

@@ -1,3 +1,3 @@
 echo Installing Dependancies and Compiling Project
-yarn install --registry https://npr.saal.ai
+yarn install --network-timeout=300000
 yarn run dev

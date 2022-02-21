@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-docker build . -t saal-service-test:latest -f dev.Dockerfile
+docker build . -t url-service-test:latest -f dev.Dockerfile
 
 docker run                  \
     --rm                    \
@@ -15,5 +15,5 @@ docker run                  \
     --env "REDIS_HOST=syncer-redis" \
     -v "${PWD}":/user \
     -w "/user"  \
-    saal-service-test:latest  \
+    url-service-test:latest  \
     yarn run test
